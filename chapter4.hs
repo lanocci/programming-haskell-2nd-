@@ -49,11 +49,11 @@ test2 :: [Char] -> Bool
 test2 ('a' : _) = True
 test2 _ = False
 
-head :: [a] -> a
-head (x : _) = x
+-- head :: [a] -> a
+-- head (x : _) = x
 
-tail :: [a] -> [a]
-tail (_ : xs) = xs
+-- tail :: [a] -> [a]
+-- tail (_ : xs) = xs
 
 -- lambda
 -- \x -> x + x
@@ -81,3 +81,29 @@ odds n = map f [0..n-1]
 
 oddsWithLambda :: Int -> [Int]
 oddsWithLambda n = map (\x -> x*2 + 1) [0..n-1]
+
+-- section
+-- #を演算子とすると、引数x, yに対し、(#), (x #), (# y) はセクションと呼ばれる
+-- (#) = \x -> (\y -> x # y)
+-- (x #) = \y -> x # y
+-- (# y) = \x -> x # y
+-- (+) :: Int -> Int -> Int
+-- (+) = \x -> (\y -> x + y)
+
+
+-- practice
+-- 1
+halve :: [a] -> ([a], [a])
+halve x = (take (length x `div` 2) x, drop (length x `div` 2) x)
+
+-- 2 a
+thirdA ::[a] -> a
+thirdA x = head (tail (tail x))
+
+-- 2 b
+thirdB :: [a] -> a
+thirdB x = x !! 2
+
+-- 2 c
+thirdC :: [a] -> a
+thirdC (_ : _ : x : _) = x
