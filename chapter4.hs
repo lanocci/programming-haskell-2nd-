@@ -22,9 +22,9 @@ not True = False
 True && b = b
 False && _ = False
 
-b && c | b == c = b
-       | otherwise = False
-
+-- b && c | b == c = b
+--        | otherwise = False
+-- 
 -- tuple pattern
 fst :: (a, b) -> a
 fst (x, _) = x
@@ -55,3 +55,29 @@ head (x : _) = x
 tail :: [a] -> [a]
 tail (_ : xs) = xs
 
+-- lambda
+-- \x -> x + x
+-- (\x -> x + x) 2 ... 4
+
+add :: Int -> Int -> Int
+add x y = x + y
+
+-- 型注釈と関数の定義が同じ形になる
+addWithLambda :: Int -> (Int -> Int)
+addWithLambda = \x -> (\y -> x + y)
+
+-- 関数を返す関数の定義がわかりやすくなる
+const :: a -> b -> a
+const x _ = x
+
+constWithLambda :: a -> (b -> a)
+constWithLambda x = \_ -> x
+
+
+-- 一度しか参照されない関数に名前をつけることを避けることができる
+odds :: Int -> [Int]
+odds n = map f [0..n-1]
+         where f x = x*2 + 1
+
+oddsWithLambda :: Int -> [Int]
+oddsWithLambda n = map (\x -> x*2 + 1) [0..n-1]
