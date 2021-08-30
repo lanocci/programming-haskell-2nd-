@@ -107,3 +107,33 @@ thirdB x = x !! 2
 -- 2 c
 thirdC :: [a] -> a
 thirdC (_ : _ : x : _) = x
+
+-- 3 a
+safetailA :: [a] -> [a]
+safetailA xs = if null xs then [] else drop 1 xs
+
+-- 3 b
+safetailB :: [a] -> [a]
+safetailB xs | null xs = []
+             | otherwise = drop 1 xs
+
+-- 3 c
+safetailC :: [a] -> [a]
+safetailC (_ : xs) = xs
+safetailC [] = []
+
+-- 4
+(||) :: Bool -> Bool -> Bool
+True || False = True
+True || True = True
+False || True = True
+False || False = False
+
+False || False = False
+_ || _ = True
+
+False || b = b
+True || _ = True
+
+a || b | a == b = a
+       | otherwise = True
