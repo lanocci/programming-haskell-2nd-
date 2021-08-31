@@ -18,9 +18,9 @@ not :: Bool -> Bool
 not False = True
 not True = False
 
-(&&) :: Bool -> Bool -> Bool
-True && b = b
-False && _ = False
+-- (&&) :: Bool -> Bool -> Bool
+-- True && b = b
+-- False && _ = False
 
 -- b && c | b == c = b
 --        | otherwise = False
@@ -137,3 +137,26 @@ True || _ = True
 
 a || b | a == b = a
        | otherwise = True
+
+-- 5
+-- (&&) :: Bool -> Bool -> Bool
+-- (&&) x y = if x == True then
+--                if y == True then True
+--                else False
+--            else False
+
+-- 6
+(&&) :: Bool -> Bool -> Bool
+(&&) x y = if x == True then y
+           else False
+
+-- 7
+mult :: Int -> (Int -> (Int -> Int))
+mult = \x -> (\y -> (\z -> x * y * z))
+
+-- 8
+luhnDouble :: Int -> Int
+luhnDouble x | x + x > 9 = x + x - 9
+             | otherwise = x + x
+luhn :: Int -> Int -> Int -> Int -> Bool
+luhn w x y z = (sum ((map (\i -> luhnDouble i) [w, y]) ++ [x, z])) `mod` 10 == 0
