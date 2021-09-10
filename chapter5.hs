@@ -1,3 +1,5 @@
+import Data.Char
+
 --内包表記
 
 -- [x^2 | x <- [1..5]]
@@ -41,3 +43,18 @@ lowers xs = Main.length [x | x <- xs, x >= 'a' && x <= 'z']
 
 count :: Char -> String -> Int
 count x xs = Main.length [x' | x' <- xs, x == x']
+
+-- Caesar Cipher
+-- haskell is fun -> kdvnhoo lv ixq (アルファベット3つ後ろの文字に入れ替える)
+let2int :: Char -> Int
+let2int c = ord c - ord 'a'
+
+int2let :: Int -> Char
+int2let n = chr (ord 'a' + n)
+
+shift :: Int -> Char -> Char
+shift n c | isLower c = int2let ((let2int c + n) `mod` 26)
+          | otherwise = c
+
+encode :: Int -> String -> String
+encode n xs = [shift n x | x <- xs]
